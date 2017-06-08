@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    
+    <!-- Interface Implementations -->
+    <preference for="Rcason\Mq\Api\Config\ConfigInterface" type="Rcason\Mq\Model\Config\Config" />
+    <preference for="Rcason\Mq\Api\Data\MessageEnvelopeInterface" type="Rcason\Mq\Model\MessageEnvelope" />
+    <preference for="Rcason\Mq\Api\MessageEncoderInterface" type="Rcason\Mq\Model\JsonMessageEncoder" />
+    <preference for="Rcason\Mq\Api\PublisherInterface" type="Rcason\Mq\Model\Publisher" />
+    
+    <!-- CLI Commands -->
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="brokerListCommand" xsi:type="object">Rcason\Mq\Console\BrokerListCommand</item>
+                <item name="queueListCommand" xsi:type="object">Rcason\Mq\Console\QueueListCommand</item>
+                <item name="publishMessageCommand" xsi:type="object">Rcason\Mq\Console\PublishMessageCommand</item>
+                <item name="startConsumerCommand" xsi:type="object">Rcason\Mq\Console\StartConsumerCommand</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

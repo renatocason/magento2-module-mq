@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="config">
+        <xs:complexType>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element name="ceBroker" type="ceBrokerType" />
+            </xs:choice>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element name="ceQueue" type="ceQueueType" />
+            </xs:choice>
+        </xs:complexType>
+        <xs:unique name="broker-unique-name">
+            <xs:annotation>
+                <xs:documentation>
+                    Broker name must be unique.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:selector xpath="ceBroker"/>
+            <xs:field xpath="@name"/>
+        </xs:unique>
+        <xs:unique name="queue-unique-name">
+            <xs:annotation>
+                <xs:documentation>
+                    Queue name must be unique.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:selector xpath="ceQueue"/>
+            <xs:field xpath="@name"/>
+        </xs:unique>
+    </xs:element>
+    <xs:complexType name="ceBrokerType">
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="classInterfaceType" name="implementationInstance" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="ceQueueType">
+        <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="broker" use="required"/>
+        <xs:attribute type="classInterfaceType" name="messageSchema" use="required"/>
+        <xs:attribute type="classInterfaceType" name="consumerInstance" use="required"/>
+    </xs:complexType>
+    <xs:simpleType name="classInterfaceType">
+        <xs:annotation>
+            <xs:documentation>
+                Class/interface name is expected in a format "Vendor\Module\Api\ServiceName".
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[a-zA-Z\\]+" />
+            <xs:minLength value="4" />
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>
