@@ -1,6 +1,13 @@
 # Magento 2 Message Queue Module
 Lightweight implementation of message queue for Magento 2 Community Edition.
 
+[![Build Status](https://travis-ci.org/renatocason/magento2-module-mq.svg?branch=master)](https://travis-ci.org/renatocason/magento2-module-mq)
+[![Coverage Status](https://coveralls.io/repos/github/renatocason/magento2-module-mq/badge.svg?branch=master)](https://coveralls.io/github/renatocason/magento2-module-mq?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/renatocason/magento2-module-mq/v/stable)](https://packagist.org/packages/renatocason/magento2-module-mq)
+[![Latest Unstable Version](https://poser.pugx.org/renatocason/magento2-module-mq/v/unstable)](https://packagist.org/packages/renatocason/magento2-module-mq)
+[![Total Downloads](https://poser.pugx.org/renatocason/magento2-module-mq/downloads)](https://packagist.org/packages/renatocason/magento2-module-mq)
+[![License](https://poser.pugx.org/renatocason/magento2-module-mq/license)](https://packagist.org/packages/renatocason/magento2-module-mq)
+
 ## System requirements
 This extension supports the following versions of Magento:
 
