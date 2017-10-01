@@ -16,7 +16,8 @@
     "require-dev": {
         "phpunit/phpunit": "4.1.0",
         "squizlabs/php_codesniffer": "1.5.3",
-        "phpmd/phpmd": "@stable"
+        "phpmd/phpmd": "@stable",
+        "satooshi/php-coveralls": "~1.0.1"
     },
     "suggest": {
         "renatocason/magento2-module-mq-mysql": "~0.1.0",
