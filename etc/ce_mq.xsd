@@ -4,8 +4,6 @@
         <xs:complexType>
             <xs:choice minOccurs="0" maxOccurs="unbounded">
                 <xs:element name="ceBroker" type="ceBrokerType" />
-            </xs:choice>
-            <xs:choice minOccurs="0" maxOccurs="unbounded">
                 <xs:element name="ceQueue" type="ceQueueType" />
             </xs:choice>
         </xs:complexType>
@@ -36,7 +34,7 @@
         <xs:attribute type="xs:string" name="name" use="required"/>
         <xs:attribute type="xs:string" name="broker" use="required"/>
         <xs:attribute type="classInterfaceType" name="messageSchema" use="required"/>
-        <xs:attribute type="classInterfaceType" name="consumerInstance" use="required"/>
+        <xs:attribute type="classInterfaceType" name="consumerInterface" use="required"/>
     </xs:complexType>
     <xs:simpleType name="classInterfaceType">
         <xs:annotation>
@@ -46,7 +44,7 @@
         </xs:annotation>
         <xs:restriction base="xs:string">
             <xs:pattern value="[a-zA-Z\\]+" />
-            <xs:minLength value="4" />
+            <xs:minLength value="3" />
         </xs:restriction>
     </xs:simpleType>
 </xs:schema>
