@@ -9,6 +9,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Rcason\Mq\Api\Config\ConfigInterface as QueueConfig;
 use Rcason\Mq\Api\MessageEncoderInterface;
 use Rcason\Mq\Api\PublisherInterface;
+use Magento\Framework\App\State;
 
 class PublishMessageCommand extends Command
 {
@@ -32,17 +33,25 @@ class PublishMessageCommand extends Command
     private $publisher;
 
     /**
+     * @var \Magento\Framework\App\State
+     */
+    protected $state;
+
+    /**
+     * @param State $state
      * @param QueueConfig $queueConfig
      * @param MessageEncoderInterface $messageEncoder
      * @param PublisherInterface $publisher
      * @param string|null $name
      */
     public function __construct(
+        State $state,
         QueueConfig $queueConfig,
         MessageEncoderInterface $messageEncoder,
         PublisherInterface $publisher,
         $name = null
     ) {
+        $this->state = $state;
         $this->queueConfig = $queueConfig;
         $this->messageEncoder = $messageEncoder;
         $this->publisher = $publisher;
@@ -55,6 +64,13 @@ class PublishMessageCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        try {
+            // this tosses an error if the areacode is not set.
+            $this->state->getAreaCode();
+        } catch (\Exception $e) {
+            $this->state->setAreaCode('adminhtml');
+        }
+        
         // Load and verify input arguments
         $queueName = $input->getArgument(self::ARGUMENT_QUEUE_NAME);
         $message = $input->getArgument(self::ARGUMENT_MESSAGE_CONTENT);

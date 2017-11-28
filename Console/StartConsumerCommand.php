@@ -10,6 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Rcason\Mq\Api\Config\ConfigInterface as QueueConfig;
 use Rcason\Mq\Api\PublisherInterface;
 use Rcason\Mq\Api\MessageEncoderInterface;
+use Magento\Framework\App\State;
 
 class StartConsumerCommand extends Command
 {
@@ -29,15 +30,23 @@ class StartConsumerCommand extends Command
     private $messageEncoder;
 
     /**
+     * @var \Magento\Framework\App\State
+     */
+    protected $state;
+
+    /**
+     * @param State $state
      * @param QueueConfig $queueConfig
      * @param MessageEncoderInterface $messageEncoder
      * @param string|null $name
      */
     public function __construct(
+        State $state,
         QueueConfig $queueConfig,
         MessageEncoderInterface $messageEncoder,
         $name = null
     ) {
+        $this->state = $state;
         $this->queueConfig = $queueConfig;
         $this->messageEncoder = $messageEncoder;
 
@@ -49,6 +58,13 @@ class StartConsumerCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        try {
+            // this tosses an error if the areacode is not set.
+            $this->state->getAreaCode();
+        } catch (\Exception $e) {
+            $this->state->setAreaCode('adminhtml');
+        }
+
         // Load and verify input arguments
         $queueName = $input->getArgument(self::ARGUMENT_QUEUE_NAME);
         $interval = $input->getOption(self::OPTION_POLL_INTERVAL);
