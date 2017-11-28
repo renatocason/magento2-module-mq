@@ -20,12 +20,12 @@ class PublishMessageCommand extends Command
      * @var QueueConfig
      */
     private $queueConfig;
-    
+
     /**
      * @var MessageEncoderInterface
      */
     private $messageEncoder;
-    
+
     /**
      * @var PublisherInterface
      */
@@ -46,7 +46,7 @@ class PublishMessageCommand extends Command
         $this->queueConfig = $queueConfig;
         $this->messageEncoder = $messageEncoder;
         $this->publisher = $publisher;
-        
+
         parent::__construct($name);
     }
 
@@ -58,16 +58,16 @@ class PublishMessageCommand extends Command
         // Load and verify input arguments
         $queueName = $input->getArgument(self::ARGUMENT_QUEUE_NAME);
         $message = $input->getArgument(self::ARGUMENT_MESSAGE_CONTENT);
-        
+
         // Decode message for publisher
         $message = $this->messageEncoder->decode($queueName, $message);
-        
+
         // Publish message
         $this->publisher->publish(
             $queueName,
             $message
         );
-        
+
         $output->writeln('Message published.');
     }
 
@@ -78,7 +78,7 @@ class PublishMessageCommand extends Command
     {
         $this->setName(self::COMMAND_MESSAGES_PUBLISH);
         $this->setDescription('Publish message to queue');
-        
+
         $this->addArgument(
             self::ARGUMENT_QUEUE_NAME,
             InputArgument::REQUIRED,
@@ -89,7 +89,7 @@ class PublishMessageCommand extends Command
             InputArgument::REQUIRED,
             'The json encoded content of the message.'
         );
-        
+
         parent::configure();
     }
 }

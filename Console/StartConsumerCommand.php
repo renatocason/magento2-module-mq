@@ -22,7 +22,7 @@ class StartConsumerCommand extends Command
      * @var QueueConfig
      */
     private $queueConfig;
-    
+
     /**
      * @var MessageEncoderInterface
      */
@@ -40,7 +40,7 @@ class StartConsumerCommand extends Command
     ) {
         $this->queueConfig = $queueConfig;
         $this->messageEncoder = $messageEncoder;
-        
+
         parent::__construct($name);
     }
 
@@ -53,15 +53,15 @@ class StartConsumerCommand extends Command
         $queueName = $input->getArgument(self::ARGUMENT_QUEUE_NAME);
         $interval = $input->getOption(self::OPTION_POLL_INTERVAL);
         $limit = $input->getOption(self::OPTION_MESSAGE_LIMIT);
-        
+
         // Prepare consumer and broker
         $broker = $this->queueConfig->getQueueBrokerInstance($queueName);
         $consumer = $this->queueConfig->getQueueConsumerInstance($queueName);
-        
+
         do {
           // Get next message in queue
           $message = $broker->peek();
-          
+
           if($message) {
               // Try to process the message
               try {
@@ -77,7 +77,7 @@ class StartConsumerCommand extends Command
               // No message found, wait before checking again
               usleep($interval * 1000);
           }
-          
+
           $limit--;
         } while($limit != 0);
     }
@@ -89,7 +89,7 @@ class StartConsumerCommand extends Command
     {
         $this->setName(self::COMMAND_CONSUMERS_START);
         $this->setDescription('Start queue consumer');
-        
+
         $this->addArgument(
             self::ARGUMENT_QUEUE_NAME,
             InputArgument::REQUIRED,
@@ -109,7 +109,7 @@ class StartConsumerCommand extends Command
             'Maximum number of messages to process (default is 0, unlimited).',
             0
         );
-        
+
         parent::configure();
     }
 }

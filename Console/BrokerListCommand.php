@@ -23,7 +23,7 @@ class BrokerListCommand extends Command
     public function __construct(QueueConfig $queueConfig, $name = null)
     {
         $this->queueConfig = $queueConfig;
-        
+
         parent::__construct($name);
     }
 
@@ -37,7 +37,7 @@ class BrokerListCommand extends Command
             $output->writeln('No configured brokers.');
             return;
         }
-        
+
         // Print header
         $rowFormat = '%-20s %s';
         $output->writeln(sprintf(
@@ -45,7 +45,7 @@ class BrokerListCommand extends Command
             'Broker Name',
             'Class'
         ));
-        
+
         // Print broker rows
         foreach($brokerNames as $name) {
             $output->writeln(sprintf(
@@ -63,7 +63,7 @@ class BrokerListCommand extends Command
     {
         $this->setName(self::COMMAND_BROKER_LIST);
         $this->setDescription('List of defined brokers');
-        
+
         parent::configure();
     }
 }

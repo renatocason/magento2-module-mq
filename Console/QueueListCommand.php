@@ -23,7 +23,7 @@ class QueueListCommand extends Command
     public function __construct(QueueConfig $queueConfig, $name = null)
     {
         $this->queueConfig = $queueConfig;
-        
+
         parent::__construct($name);
     }
 
@@ -37,7 +37,7 @@ class QueueListCommand extends Command
             $output->writeln('No configured queue.');
             return;
         }
-        
+
         // Print header
         $rowFormat = '%-20s %-20s %s';
         $output->writeln(sprintf(
@@ -46,7 +46,7 @@ class QueueListCommand extends Command
             'Broker',
             'Consumer'
         ));
-        
+
         // Print queue rows
         foreach($queueNames as $name) {
             $output->writeln(sprintf(
@@ -65,7 +65,7 @@ class QueueListCommand extends Command
     {
         $this->setName(self::COMMAND_QUEUE_LIST);
         $this->setDescription('List of defined queues');
-        
+
         parent::configure();
     }
 }
