@@ -10,6 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Rcason\Mq\Api\Config\ConfigInterface as QueueConfig;
 use Rcason\Mq\Api\PublisherInterface;
 use Rcason\Mq\Api\MessageEncoderInterface;
+use Magento\Framework\App\State;
 
 class StartConsumerCommand extends Command
 {
@@ -22,25 +23,33 @@ class StartConsumerCommand extends Command
      * @var QueueConfig
      */
     private $queueConfig;
-    
+
     /**
      * @var MessageEncoderInterface
      */
     private $messageEncoder;
 
     /**
+     * @var \Magento\Framework\App\State
+     */
+    protected $state;
+
+    /**
+     * @param State $state
      * @param QueueConfig $queueConfig
      * @param MessageEncoderInterface $messageEncoder
      * @param string|null $name
      */
     public function __construct(
+        State $state,
         QueueConfig $queueConfig,
         MessageEncoderInterface $messageEncoder,
         $name = null
     ) {
+        $this->state = $state;
         $this->queueConfig = $queueConfig;
         $this->messageEncoder = $messageEncoder;
-        
+
         parent::__construct($name);
     }
 
@@ -49,19 +58,26 @@ class StartConsumerCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        try {
+            // this tosses an error if the areacode is not set.
+            $this->state->getAreaCode();
+        } catch (\Exception $e) {
+            $this->state->setAreaCode('adminhtml');
+        }
+
         // Load and verify input arguments
         $queueName = $input->getArgument(self::ARGUMENT_QUEUE_NAME);
         $interval = $input->getOption(self::OPTION_POLL_INTERVAL);
         $limit = $input->getOption(self::OPTION_MESSAGE_LIMIT);
-        
+
         // Prepare consumer and broker
         $broker = $this->queueConfig->getQueueBrokerInstance($queueName);
         $consumer = $this->queueConfig->getQueueConsumerInstance($queueName);
-        
+
         do {
           // Get next message in queue
           $message = $broker->peek();
-          
+
           if($message) {
               // Try to process the message
               try {
@@ -77,7 +93,7 @@ class StartConsumerCommand extends Command
               // No message found, wait before checking again
               usleep($interval * 1000);
           }
-          
+
           $limit--;
         } while($limit != 0);
     }
@@ -89,7 +105,7 @@ class StartConsumerCommand extends Command
     {
         $this->setName(self::COMMAND_CONSUMERS_START);
         $this->setDescription('Start queue consumer');
-        
+
         $this->addArgument(
             self::ARGUMENT_QUEUE_NAME,
             InputArgument::REQUIRED,
@@ -109,7 +125,7 @@ class StartConsumerCommand extends Command
             'Maximum number of messages to process (default is 0, unlimited).',
             0
         );
-        
+
         parent::configure();
     }
 }

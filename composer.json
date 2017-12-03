@@ -3,6 +3,10 @@
     "description": "Magento 2 Message Queue OS Module",
     "repositories": [
         {
+            "type": "vcs",
+            "url": "https://github.com/augustash/magento2-module-mq-ampq.git"
+        },
+        {
             "type": "composer",
             "url": "https://repo.magento.com/"
         }
@@ -21,7 +25,7 @@
     },
     "suggest": {
         "renatocason/magento2-module-mq-mysql": "~0.1.0",
-        "renatocason/magento2-module-mq-amqp": "~0.1.0"
+        "renatocason/magento2-module-mq-amqp": "dev-master"
     },
     "type": "magento2-module",
     "license": [

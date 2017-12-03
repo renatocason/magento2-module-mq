@@ -6,6 +6,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Rcason\Mq\Api\Config\ConfigInterface as QueueConfig;
+use Magento\Framework\App\State;
 
 class BrokerListCommand extends Command
 {
@@ -17,13 +18,23 @@ class BrokerListCommand extends Command
     private $queueConfig;
 
     /**
+     * @var \Magento\Framework\App\State
+     */
+    protected $state;
+
+    /**
+     * @param State $state
      * @param QueueConfig $queueConfig
      * @param string|null $name
      */
-    public function __construct(QueueConfig $queueConfig, $name = null)
-    {
+    public function __construct(
+        State $state,
+        QueueConfig $queueConfig,
+        $name = null
+    ) {
+        $this->state = $state;
         $this->queueConfig = $queueConfig;
-        
+
         parent::__construct($name);
     }
 
@@ -32,12 +43,19 @@ class BrokerListCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        try {
+            // this tosses an error if the areacode is not set.
+            $this->state->getAreaCode();
+        } catch (\Exception $e) {
+            $this->state->setAreaCode('adminhtml');
+        }
+        
         $brokerNames = $this->queueConfig->getBrokerNames();
         if(count($brokerNames) == 0) {
             $output->writeln('No configured brokers.');
             return;
         }
-        
+
         // Print header
         $rowFormat = '%-20s %s';
         $output->writeln(sprintf(
@@ -45,7 +63,7 @@ class BrokerListCommand extends Command
             'Broker Name',
             'Class'
         ));
-        
+
         // Print broker rows
         foreach($brokerNames as $name) {
             $output->writeln(sprintf(
@@ -63,7 +81,7 @@ class BrokerListCommand extends Command
     {
         $this->setName(self::COMMAND_BROKER_LIST);
         $this->setDescription('List of defined brokers');
-        
+
         parent::configure();
     }
 }
