@@ -89,5 +89,9 @@ class ExampleConsumer implements \Rcason\Mq\Api\ConsumerInterface
 Author:
 - [Renato Cason](https://github.com/renatocason)
 
+Contributions:
+- [grafikchaos](https://github.com/grafikchaos)
+- For a full list of contributors visit [Magento 2 Message Queue Module on GitHub](https://github.com/renatocason/magento2-module-mq/graphs/contributors)
+
 ## License
 Licensed under the Open Software License version 3.0
