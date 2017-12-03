@@ -3,10 +3,6 @@
     "description": "Magento 2 Message Queue OS Module",
     "repositories": [
         {
-            "type": "vcs",
-            "url": "https://github.com/augustash/magento2-module-mq-ampq.git"
-        },
-        {
             "type": "composer",
             "url": "https://repo.magento.com/"
         }
