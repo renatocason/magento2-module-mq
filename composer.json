@@ -8,7 +8,7 @@
         }
     ],
     "require": {
-        "php": "~7.0.0",
+        "php": "~7.0.0|~7.1.0",
         "symfony/console": "~2.3, !=2.7.0",
         "magento/framework": "101.0.*",
         "magento/module-store": "100.2.*"
