@@ -12,6 +12,7 @@ Lightweight implementation of message queue for Magento 2 Community Edition.
 This extension supports the following versions of Magento:
 
 *	Community Edition (CE) versions 2.1.x
+*	Community Edition (CE) versions 2.2.x
 
 ## Installation
 1. Require the module via Composer

@@ -59,7 +59,6 @@ class StartConsumerCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         try {
-            // this tosses an error if the areacode is not set.
             $this->state->getAreaCode();
         } catch (\Exception $e) {
             $this->state->setAreaCode('adminhtml');
@@ -75,26 +74,23 @@ class StartConsumerCommand extends Command
         $consumer = $this->queueConfig->getQueueConsumerInstance($queueName);
 
         do {
-          // Get next message in queue
-          $message = $broker->peek();
-
-          if($message) {
-              // Try to process the message
-              try {
-                  $consumer->process(
-                      $this->messageEncoder->decode($queueName, $message->getContent())
-                  );
-                  $broker->acknowledge($message);
-              } catch(\Exception $ex) {
-                  $broker->reject($message);
-                  $output->writeln('Error processing message: ' . $ex->getMessage());
-              }
-          } else {
-              // No message found, wait before checking again
-              usleep($interval * 1000);
-          }
-
-          $limit--;
+            $limit--;
+            $message = $broker->peek();
+            
+            if (!$message) {
+                usleep($interval * 1000);
+                continue;
+            }
+            
+            try {
+                $consumer->process(
+                    $this->messageEncoder->decode($queueName, $message->getContent())
+                );
+                $broker->acknowledge($message);
+            } catch(\Exception $ex) {
+                $broker->reject($message, false);
+                $output->writeln('Error processing message: ' . $ex->getMessage());
+            }
         } while($limit != 0);
     }
 

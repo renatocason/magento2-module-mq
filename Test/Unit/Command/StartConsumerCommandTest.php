@@ -4,7 +4,7 @@ namespace Rcason\Mq\Test\Unit\Console;
 
 use Rcason\Mq\Console\StartConsumerCommand;
 
-class StartConsumerCommandTest extends \PHPUnit_Framework_TestCase
+class StartConsumerCommandTest extends \PHPUnit\Framework\TestCase
 {
     /** @var \Magento\Framework\TestFramework\Unit\Helper\ObjectManager */
     private $objectManager;

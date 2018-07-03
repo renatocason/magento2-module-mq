@@ -4,7 +4,7 @@ namespace Rcason\Mq\Test\Unit\Console;
 
 use Rcason\Mq\Console\BrokerListCommand;
 
-class BrokerListCommandTest extends \PHPUnit_Framework_TestCase
+class BrokerListCommandTest extends \PHPUnit\Framework\TestCase
 {
     /** @var \Magento\Framework\TestFramework\Unit\Helper\ObjectManager */
     private $objectManager;

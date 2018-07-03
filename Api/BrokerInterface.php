@@ -32,5 +32,5 @@ interface BrokerInterface
      * 
      * @return void
      */
-    public function reject(MessageEnvelopeInterface $message, $requeue = false);
+    public function reject(MessageEnvelopeInterface $message, bool $requeue);
 }

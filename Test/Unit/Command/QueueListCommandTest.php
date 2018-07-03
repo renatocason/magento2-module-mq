@@ -4,7 +4,7 @@ namespace Rcason\Mq\Test\Unit\Console;
 
 use Rcason\Mq\Console\QueueListCommand;
 
-class QueueListCommandTest extends \PHPUnit_Framework_TestCase
+class QueueListCommandTest extends \PHPUnit\Framework\TestCase
 {
     /** @var \Magento\Framework\TestFramework\Unit\Helper\ObjectManager */
     private $objectManager;
