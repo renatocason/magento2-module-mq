@@ -4,6 +4,9 @@ namespace Rcason\Mq\Api;
 
 use Rcason\Mq\Api\Data\MessageEnvelopeInterface;
 
+/**
+ * @api
+ */
 interface BrokerInterface
 {
     /**
