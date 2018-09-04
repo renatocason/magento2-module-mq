@@ -6,7 +6,9 @@ use Rcason\Mq\Console\StartConsumerCommand;
 
 class StartConsumerCommandTest extends \PHPUnit\Framework\TestCase
 {
-    /** @var \Magento\Framework\TestFramework\Unit\Helper\ObjectManager */
+    /**
+     * @var \Magento\Framework\TestFramework\Unit\Helper\ObjectManager
+     */
     private $objectManager;
 
     /**
@@ -15,7 +17,7 @@ class StartConsumerCommandTest extends \PHPUnit\Framework\TestCase
     private $command;
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected function setUp()
     {
@@ -39,5 +41,6 @@ class StartConsumerCommandTest extends \PHPUnit\Framework\TestCase
         $this->command->getDefinition()->getArgument(StartConsumerCommand::ARGUMENT_QUEUE_NAME);
         $this->command->getDefinition()->getOption(StartConsumerCommand::OPTION_POLL_INTERVAL);
         $this->command->getDefinition()->getOption(StartConsumerCommand::OPTION_MESSAGE_LIMIT);
+        $this->command->getDefinition()->getOption(StartConsumerCommand::OPTION_MESSAGE_REQUEUE);
     }
 }

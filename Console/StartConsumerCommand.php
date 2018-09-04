@@ -18,6 +18,7 @@ class StartConsumerCommand extends Command
     const ARGUMENT_QUEUE_NAME = 'queue';
     const OPTION_POLL_INTERVAL = 'interval';
     const OPTION_MESSAGE_LIMIT = 'limit';
+    const OPTION_MESSAGE_REQUEUE = 'requeue';
 
     /**
      * @var QueueConfig
@@ -54,7 +55,7 @@ class StartConsumerCommand extends Command
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -68,6 +69,7 @@ class StartConsumerCommand extends Command
         $queueName = $input->getArgument(self::ARGUMENT_QUEUE_NAME);
         $interval = $input->getOption(self::OPTION_POLL_INTERVAL);
         $limit = $input->getOption(self::OPTION_MESSAGE_LIMIT);
+        $requeue = (bool)$input->getOption(self::OPTION_MESSAGE_REQUEUE);
 
         // Prepare consumer and broker
         $broker = $this->queueConfig->getQueueBrokerInstance($queueName);
@@ -88,14 +90,14 @@ class StartConsumerCommand extends Command
                 );
                 $broker->acknowledge($message);
             } catch(\Exception $ex) {
-                $broker->reject($message, false);
+                $broker->reject($message, $requeue);
                 $output->writeln('Error processing message: ' . $ex->getMessage());
             }
         } while($limit != 0);
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected function configure()
     {
@@ -119,6 +121,13 @@ class StartConsumerCommand extends Command
             null,
             InputOption::VALUE_REQUIRED,
             'Maximum number of messages to process (default is 0, unlimited).',
+            0
+        );
+        $this->addOption(
+            self::OPTION_MESSAGE_REQUEUE,
+            null,
+            InputOption::VALUE_OPTIONAL,
+            'Requeue messages on failure (1 to enable, 0 to disable).',
             0
         );
 
