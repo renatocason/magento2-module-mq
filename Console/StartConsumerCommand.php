@@ -19,6 +19,7 @@ class StartConsumerCommand extends Command
     const OPTION_POLL_INTERVAL = 'interval';
     const OPTION_MESSAGE_LIMIT = 'limit';
     const OPTION_MESSAGE_REQUEUE = 'requeue';
+    const OPTION_MESSAGE_RUN_ONCE = 'run-once';
 
     /**
      * @var QueueConfig
@@ -70,6 +71,7 @@ class StartConsumerCommand extends Command
         $interval = $input->getOption(self::OPTION_POLL_INTERVAL);
         $limit = $input->getOption(self::OPTION_MESSAGE_LIMIT);
         $requeue = (bool)$input->getOption(self::OPTION_MESSAGE_REQUEUE);
+        $runOnce = (bool)$input->getOption(self::OPTION_MESSAGE_RUN_ONCE);
 
         // Prepare consumer and broker
         $broker = $this->queueConfig->getQueueBrokerInstance($queueName);
@@ -78,12 +80,18 @@ class StartConsumerCommand extends Command
         do {
             $limit--;
             $message = $broker->peek();
-            
+
             if (!$message) {
                 usleep($interval * 1000);
-                continue;
+
+                if($runOnce){
+                    break;
+                }
+                else{
+                    continue;
+                }
             }
-            
+
             try {
                 $consumer->process(
                     $this->messageEncoder->decode($queueName, $message->getContent())
@@ -129,6 +137,12 @@ class StartConsumerCommand extends Command
             InputOption::VALUE_OPTIONAL,
             'Requeue messages on failure (1 to enable, 0 to disable).',
             0
+        );
+        $this->addOption(
+            self::OPTION_MESSAGE_RUN_ONCE,
+            null,
+            InputOption::VALUE_NONE,
+            'Requeue messages on failure (1 to enable, 0 to disable).'
         );
 
         parent::configure();
