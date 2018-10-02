@@ -87,9 +87,7 @@ class StartConsumerCommand extends Command
                 if($runOnce){
                     break;
                 }
-                else{
-                    continue;
-                }
+                continue;
             }
 
             try {
