@@ -140,7 +140,7 @@ class StartConsumerCommand extends Command
             self::OPTION_MESSAGE_RUN_ONCE,
             null,
             InputOption::VALUE_NONE,
-            'Requeue messages on failure (1 to enable, 0 to disable).'
+            'Stop Process when queue is empty'
         );
 
         parent::configure();
