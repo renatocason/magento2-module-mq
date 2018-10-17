@@ -92,6 +92,7 @@ Author:
 
 Contributions:
 - [grafikchaos](https://github.com/grafikchaos)
+- [jonathan-martz](https://github.com/jonathan-martz)
 - For a full list of contributors visit [Magento 2 Message Queue Module on GitHub](https://github.com/renatocason/magento2-module-mq/graphs/contributors)
 
 ## License
