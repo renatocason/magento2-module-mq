@@ -8,20 +8,20 @@
         }
     ],
     "require": {
-        "php": "~7.0.0|~7.1.0",
-        "symfony/console": "~2.3, !=2.7.0",
-        "magento/framework": "101.0.*",
-        "magento/module-store": "100.2.*"
+        "php": "~7.1.0|~7.2.0",
+        "symfony/console": "~4.1.19",
+        "magento/framework": "102.0.*",
+        "magento/module-store": "101.0.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "~6.2.0",
-        "squizlabs/php_codesniffer": "3.2.2",
+        "phpunit/phpunit": "~6.5.13",
+        "squizlabs/php_codesniffer": "3.5.1",
         "phpmd/phpmd": "@stable",
         "php-coveralls/php-coveralls": "~2.1.0"
     },
     "suggest": {
-        "renatocason/magento2-module-mq-mysql": "~1.0.0",
-        "renatocason/magento2-module-mq-amqp": "~1.0.0"
+        "renatocason/magento2-module-mq-mysql": "~1.1.0",
+        "renatocason/magento2-module-mq-amqp": "~1.1.0"
     },
     "type": "magento2-module",
     "license": [
