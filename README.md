@@ -13,6 +13,7 @@ This extension supports the following versions of Magento:
 
 *	Community Edition (CE) versions 2.1.x
 *	Community Edition (CE) versions 2.2.x
+*	Community Edition (CE) versions 2.3.x
 
 ## Installation
 1. Require the module via Composer
@@ -92,6 +93,8 @@ Author:
 
 Contributions:
 - [grafikchaos](https://github.com/grafikchaos)
+- [jonathan-martz](https://github.com/jonathan-martz)
+- [antoninobonumore](https://github.com/antoninobonumore)
 - For a full list of contributors visit [Magento 2 Message Queue Module on GitHub](https://github.com/renatocason/magento2-module-mq/graphs/contributors)
 
 ## License
