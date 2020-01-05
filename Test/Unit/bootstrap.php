@@ -1,13 +1,16 @@
 <?php
 
-// @codingStandardsIgnoreFile
+/**
+ * @codingStandardsIgnoreFile
+ * @SuppressWarnings(PHPMD)
+ */
+
 require_once realpath(__DIR__ . '/../../vendor/autoload.php');
 
 if (!function_exists('__')) {
     /**
      * Create value-object \Magento\Framework\Phrase
      * 
-     * @SuppressWarnings(PHPMD.ShortMethodName)
      * @return \Magento\Framework\Phrase
      */
     function __()
