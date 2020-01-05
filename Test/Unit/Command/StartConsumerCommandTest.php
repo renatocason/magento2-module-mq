@@ -2,12 +2,13 @@
 
 namespace Rcason\Mq\Test\Unit\Console;
 
+use Magento\Framework\TestFramework\Unit\Helper\ObjectManager;
 use Rcason\Mq\Console\StartConsumerCommand;
 
 class StartConsumerCommandTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var \Magento\Framework\TestFramework\Unit\Helper\ObjectManager
+     * @var ObjectManager
      */
     private $objectManager;
 
@@ -21,7 +22,7 @@ class StartConsumerCommandTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp()
     {
-        $this->objectManager = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);
+        $this->objectManager = new ObjectManager($this);
         parent::setUp();
     }
 
