@@ -35,6 +35,12 @@
         <xs:attribute type="xs:string" name="broker" use="required"/>
         <xs:attribute type="classInterfaceType" name="messageSchema" use="required"/>
         <xs:attribute type="classInterfaceType" name="consumerInterface" use="required"/>
+        <xs:attribute type="pollIntervalType" name="pollInterval"/>
+        <xs:attribute type="limitType" name="limit"/>
+        <xs:attribute type="requeueType" name="requeue"/>
+        <xs:attribute type="runOnceType" name="runOnce"/>
+        <xs:attribute type="retryIntervalType" name="retryInterval"/>
+        <xs:attribute type="maxRetriesType" name="maxRetries"/>
     </xs:complexType>
     <xs:simpleType name="classInterfaceType">
         <xs:annotation>
@@ -46,5 +52,53 @@
             <xs:pattern value="[0-9a-zA-Z\\]+" />
             <xs:minLength value="3" />
         </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="pollIntervalType">
+        <xs:annotation>
+            <xs:documentation>
+                Polling interval in ms (default is 200).
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:integer" />
+    </xs:simpleType>
+    <xs:simpleType name="limitType">
+        <xs:annotation>
+            <xs:documentation>
+                Maximum number of messages to process (default is 0, unlimited).
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:integer" />
+    </xs:simpleType>
+    <xs:simpleType name="requeueType">
+        <xs:annotation>
+            <xs:documentation>
+                Requeue messages on failure (true to enable, false to disable).
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:boolean" />
+    </xs:simpleType>
+    <xs:simpleType name="runOnceType">
+        <xs:annotation>
+            <xs:documentation>
+                Stop Process when queue is empty (true to enable, false to disable).
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:boolean" />
+    </xs:simpleType>
+    <xs:simpleType name="retryIntervalType">
+        <xs:annotation>
+            <xs:documentation>
+                Minimum number of seconds before a failed job retries (default is 0 which just places the job at the end of the queue, mysql only).
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:integer" />
+    </xs:simpleType>
+    <xs:simpleType name="maxRetriesType">
+        <xs:annotation>
+            <xs:documentation>
+                The number of times the system will attempt to perform the job (default is 5, 0 means unlimited, mysql only).
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:integer" />
     </xs:simpleType>
 </xs:schema>

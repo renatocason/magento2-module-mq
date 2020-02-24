@@ -135,4 +135,87 @@ class Config extends \Magento\Framework\Config\Data
         
         return $config['messageSchema'];
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getQueuePollInterval($name)
+    {
+        $config = $this->getItemByProperty('queues', $name);
+
+        return $config['pollInterval'] ?? null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getQueueLimit($name)
+    {
+        $config = $this->getItemByProperty('queues', $name);
+
+        return $config['limit'] ?? null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getQueueRequeue($name)
+    {
+        $config = $this->getItemByProperty('queues', $name);
+
+        return $this->getConfigBoolean($name, $config, 'requeue');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getQueueRunOnce($name)
+    {
+        $config = $this->getItemByProperty('queues', $name);
+
+        return $this->getConfigBoolean($name, $config, 'runOnce');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getQueueRetryInterval($name)
+    {
+        $config = $this->getItemByProperty('queues', $name);
+
+        return $config['retryInterval'] ?? null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getQueueMaxRetries($name)
+    {
+        $config = $this->getItemByProperty('queues', $name);
+
+        return $config['maxRetries'] ?? null;
+    }
+
+    /**
+     * @param string $queueName
+     * @param array $config
+     * @param string $key
+     * @return bool|null
+     */
+    protected function getConfigBoolean($queueName, $config, $key)
+    {
+        if (!isset($config[$key])) {
+            return null;
+        }
+
+        if (strcasecmp($config[$key], 'true') === 0 || $config[$key] === true || $config[$key] === 1) {
+            return true;
+        }
+
+        if (strcasecmp($config[$key], 'false') === 0 || $config[$key] === false || $config[$key] === 0) {
+            return false;
+        }
+
+        throw new \Exception(sprintf('Boolean expected in config for queue %s, element %s', $queueName, $config[$key]));
+    }
 }

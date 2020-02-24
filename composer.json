@@ -19,6 +19,9 @@
         "phpmd/phpmd": "@stable",
         "php-coveralls/php-coveralls": "~2.1.0"
     },
+    "scripts": {
+        "test": "phpunit"
+    },
     "suggest": {
         "renatocason/magento2-module-mq-mysql": "~1.1.0",
         "renatocason/magento2-module-mq-amqp": "~1.1.0"
