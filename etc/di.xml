@@ -11,10 +11,10 @@
     <type name="Magento\Framework\Console\CommandListInterface">
         <arguments>
             <argument name="commands" xsi:type="array">
-                <item name="brokerListCommand" xsi:type="object">Rcason\Mq\Console\BrokerListCommand</item>
-                <item name="queueListCommand" xsi:type="object">Rcason\Mq\Console\QueueListCommand</item>
-                <item name="publishMessageCommand" xsi:type="object">Rcason\Mq\Console\PublishMessageCommand</item>
-                <item name="startConsumerCommand" xsi:type="object">Rcason\Mq\Console\StartConsumerCommand</item>
+                <item name="ceMqBrokerListCommand" xsi:type="object">Rcason\Mq\Console\BrokerListCommand</item>
+                <item name="ceMqQueueListCommand" xsi:type="object">Rcason\Mq\Console\QueueListCommand</item>
+                <item name="ceMqPublishMessageCommand" xsi:type="object">Rcason\Mq\Console\PublishMessageCommand</item>
+                <item name="ceMqStartConsumerCommand" xsi:type="object">Rcason\Mq\Console\StartConsumerCommand</item>
             </argument>
         </arguments>
     </type>
