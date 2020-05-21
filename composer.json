@@ -1,6 +1,6 @@
 {
-    "name": "renatocason/magento2-module-mq",
-    "description": "Magento 2 Message Queue OS Module",
+    "name": "room40coding/magento2-module-mq",
+    "description": "Magento 2 Message Queue OS Module by renatocason",
     "repositories": [
         {
             "type": "composer",
@@ -9,9 +9,9 @@
     ],
     "require": {
         "php": "~7.1.0|~7.2.0|~7.3.0",
-        "symfony/console": "~4.1.9",
-        "magento/framework": "102.0.*",
-        "magento/module-store": "101.0.*"
+        "symfony/console": "*",
+        "magento/framework": "*",
+        "magento/module-store": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "~6.5.13",
@@ -19,12 +19,11 @@
         "phpmd/phpmd": "@stable",
         "php-coveralls/php-coveralls": "~2.1.0"
     },
+    "conflict": {
+        "renatocason/magento2-module-mq": "*"
+    },
     "scripts": {
         "test": "phpunit"
-    },
-    "suggest": {
-        "renatocason/magento2-module-mq-mysql": "~1.1.0",
-        "renatocason/magento2-module-mq-amqp": "~1.1.0"
     },
     "type": "magento2-module",
     "license": [
