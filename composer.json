@@ -8,10 +8,7 @@
         }
     ],
     "require": {
-        "php": "~7.1.0|~7.2.0|~7.3.0",
-        "symfony/console": "*",
-        "magento/framework": "*",
-        "magento/module-store": "*"
+        "magento/framework": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "~6.5.13",
